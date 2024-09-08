@@ -54,25 +54,17 @@ def test_find_suitable_user():
         {"name": "Maria", "age": 18},
     ]
 
-    # TODO найдите пользователя с именем "Olga"
+    # Найдите пользователя с именем "Olga"
+    suitable_user = next(user for user in users if user["name"] == "Olga")
+    assert suitable_user == {"name": "Olga", "age": 45}
 
-    for user in users:
-        if user["name"] == "Olga":
-            suitable_users = user
-
-    assert suitable_users == {"name": "Olga", "age": 45}
-
-    # TODO найдите всех пользователей младше 20 лет
-
-    suitable_users = []
-    for user in users:
-        if user["age"] < 20:
-            suitable_users.append(user)
-
+    # Найдите всех пользователей младше 20 лет
+    suitable_users = [user for user in users if user["age"] < 20]
     assert suitable_users == [
         {"name": "Stanislav", "age": 15},
         {"name": "Maria", "age": 18},
     ]
+
 
 
 # Сделайте функцию, которая будет печатать
@@ -91,6 +83,7 @@ def test_readable_function():
     go_to_companyname_homepage(page_url="https://companyname.com")
     find_registration_button_on_login_page(page_url="https://companyname.com/login", button_text="Register")
 
+
 def open_browser(browser_name):
     actual_result = print_function_name_and_args(open_browser, browser_name)
     assert actual_result == "Open Browser [Chrome]"
@@ -106,8 +99,14 @@ def find_registration_button_on_login_page(page_url, button_text):
     assert actual_result == "Find Registration Button On Login Page [https://companyname.com/login, Register]"
 
 
-def print_function_name_and_args(func, *args):
-    func_name = func.__name__.replace('_', ' ').title()
+def print_function_name_and_args(
+        func,
+        *args
+):
+    func_name = func.__name__.replace(
+        '_',
+        ' '
+    ).title()
     args_name = ", ".join([*args])
     print(f"{func_name} [{args_name}]")
     return f"{func_name} [{args_name}]"
